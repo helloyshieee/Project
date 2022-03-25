@@ -34,14 +34,14 @@ $id = "";
 		<div class ="nav">
 			<ul class="topnav">
 				<li id = "logout"><a href="logout.php">Log Out</a></li>
+				<li id = "logout"><a href="reviews.php">Reviews</a></li>
 			</ul>
 		</div>
 		<!-- Header with background-image -->
 		<div class="header">
 			<div class = "header-text">
 				<h1>A.V. COLLECTION</h1>
-    			<p>Hello there!</p>
-				<?php echo  $_SESSION['sess_user_name'];?>
+    			<p>Hello there, <?php echo  $_SESSION['sess_user_name'];?> ! You successfully logged in.</p>
     			<button>Shop Now</button>
 			</div>
 		</div>
