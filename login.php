@@ -10,24 +10,24 @@ if(isset($_POST['btnlogin'])) {
   $password = trim($_POST['password']);
   if($username != "" && $password != "") {
     try {
-      $query = "select * from `users` where `username`=:username and `password`=:password";
+      $query = "select * from `users` where (username=:username)";
       $stmt = $db->prepare($query);
       $stmt->bindParam('username', $username, PDO::PARAM_STR);
-      $stmt->bindValue('password', $password, PDO::PARAM_STR);
+      
       $stmt->execute();
       $count = $stmt->rowCount();
       $row   = $stmt->fetch(PDO::FETCH_ASSOC);
-
-  
-      if($count == 1 && !empty($row)) {
-
-          
+      echo $_POST['password'];
+      echo $row['password'];
+      if(password_verify($_POST['password'], $row['password'])) {
+      
             $_SESSION['sess_user_id']   = $row['userId'];
             $_SESSION['sess_user_name'] = $row['username'];
             header('Location: home.php');
                     exit;
             $success =1;
-          
+        
+        
       } 
       if($success == 0)
       {

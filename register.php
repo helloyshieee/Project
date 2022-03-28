@@ -33,9 +33,12 @@
 
 	if($_POST && !empty($_POST['username']) && !empty($_POST['password']) &&!empty($_POST['email']))
     {
+
 		$username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+		$password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $hash= password_hash($password, PASSWORD_DEFAULT);
         $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+		
 
 		$sql= "SELECT COUNT(username) AS num FROM users WHERE username = :username";
 		$statement =$db->prepare($sql);
@@ -52,7 +55,7 @@
 		$statement = $db->prepare ($sql);
 
         $statement->bindValue(":username", $username);
-        $statement->bindValue(":password", $password);
+        $statement->bindValue(":password", $hash);
         $statement->bindValue(":email", $email);
     
         $result = $statement->execute();
